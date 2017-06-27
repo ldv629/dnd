@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from random import randint
 
 def roll(number, dice_size):
@@ -9,7 +10,7 @@ def roll(number, dice_size):
     except:
         return 0
 
-def gen_stat():
+def gen_stat(option=None):
     """
     Generate one stat by rolling 4d6 and dropping the lowest
     """
