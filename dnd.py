@@ -2,6 +2,8 @@
 import dice
 
 def print_help():
+    """Print formatted help generated from available commands"""
+
     print('List of Valid Commands:')
     print('\thelp')
     print('\texit')
@@ -22,6 +24,7 @@ def print_help():
             print()
 
 def main():
+    """Main loop for text ui"""
 
     print("Type 'help' to print commands")
     while(1):
