@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import dice
+import character_sheet
 
 def print_help():
     """Print formatted help generated from available commands"""
