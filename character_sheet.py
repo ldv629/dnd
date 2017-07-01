@@ -35,6 +35,7 @@ def create_db():
         Column('will', Integer),
         Column('init', Integer),
         Column('bab', Integer),
+        #add in base
         Column('char_id', Integer, ForeignKey('characters.char_id'), nullable=False))
 
     weapons = Table('weapons', metadata,
@@ -91,6 +92,18 @@ def receive_healing(user_id,damage):
 def roll_skill(user_id,skill):
     pass
     return dice.roll(1,20) # + skill
+
+def add_feat(user_id):
+    pass
+
+def remove_feat(user_id):
+    pass
+
+def add_language(user_id):
+    pass
+
+def remove_language(user_id):
+    pass
 
 def roll_save(user_id,save):
     if save is 'ref':
