@@ -72,7 +72,7 @@ def gen_stats(option=None):
     stat.sort(reverse=True)
     return stat
 
-def roll_avg_stat(count,option=none):
+def roll_avg_stat(count,option=None):
     """
     return the average stat give a number of times run
     """
