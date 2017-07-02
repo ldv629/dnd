@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+
 from random import randint
+
+import character_sheet
 
 def roll(number, dice_size):
     """
@@ -22,6 +25,38 @@ def roll(number, dice_size):
         return ans
     except:
         return 0
+
+def roll_stat(stat, user_id):
+    """
+    Roll stat for character
+    Return:
+        roll + stat
+    """
+    return roll(1,20) + character_sheet.get_stat(stat, user_id)
+
+def roll_skill(skill, user_id):
+    """
+    Roll skill for character
+    Return:
+        roll + skill
+    """
+    return roll(1,20) + character_sheet.get_skill(stat, user_id)
+
+def roll_save(save,user_id):
+    """
+    Roll save for character
+    Return:
+        roll + save
+    """
+    return roll(1,20) + character_sheet.get_save(save, user_id)
+
+def roll_init(user_id):
+    """
+    Roll init for character
+    Return:
+        roll + init
+    """
+    return dice.roll(1,20) + character_sheet.get_init(user_id)
 
 def gen_stat(option=None):
     """

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import dice
 import character_sheet
+import dnd_db
 
 def print_help():
     """Print formatted help generated from available commands"""
@@ -28,6 +29,7 @@ def main():
     """Main loop for text ui"""
 
     print("Type 'help' to print commands")
+    dnd_db.create_db()
     while(1):
         command = input('Enter a command to run: ',)
         if 'help' in command or 'randint' in command:
