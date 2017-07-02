@@ -10,10 +10,10 @@ def take_damage(damage, user_id):
 def take_subdual_damage(damage, user_id):
     pass
 
-def receive_healing(user_id,damage, user_id):
+def receive_healing(damage, user_id):
     pass
 
-def receive_subdual_healing(user_id,damage, user_id):
+def receive_subdual_healing(damage, user_id):
     pass
 
 def set_hp(user_id):

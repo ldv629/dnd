@@ -9,17 +9,14 @@ def main():
 
     dnd_db.create_db()
 
+    dnd_app = appJar.gui()
+    #Charcter dropdown
+    #   Listing + add new
+
+    #grid for stats
+    dnd_app.go()
     while(1):
-        command = input('Enter a command to run: ',)
-        if 'help' in command or 'randint' in command:
-            print_help()
-        elif 'exit' in command:
-            return
-        else:
-            try:
-                print(command + ': ' + str(eval('dice.'+command)))
-            except:
-                print_help()
+        break
 
 if __name__ == "__main__":
    main() 
