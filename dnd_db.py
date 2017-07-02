@@ -88,4 +88,3 @@ def create_db():
     inventory.create(engine, checkfirst=True)
     languages.create(engine, checkfirst=True)
     feats.create(engine, checkfirst=True)
-

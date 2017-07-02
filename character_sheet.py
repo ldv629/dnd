@@ -4,13 +4,34 @@ import dice
 from sqlalchemy import *
 import dnd_db
 
-def take_damage(user_id,damage):
+def take_damage(damage, user_id):
     pass
 
-def take_subdual_damage(user_id,damage):
+def take_subdual_damage(damage, user_id):
     pass
 
-def receive_healing(user_id,damage):
+def receive_healing(user_id,damage, user_id):
+    pass
+
+def receive_subdual_healing(user_id,damage, user_id):
+    pass
+
+def set_hp(user_id):
+    pass
+
+def get_hp(user_id):
+    pass
+
+def set_current_hp(user_id):
+    pass
+
+def get_current_hp(user_id):
+    pass
+
+def set_subdual_hp(user_id):
+    pass
+
+def get_subdual_hp(user_id):
     pass
 
 def add_feat(user_id):
