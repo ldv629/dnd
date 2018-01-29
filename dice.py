@@ -3,6 +3,7 @@
 from random import randint
 
 import character_sheet
+import math
 
 def roll(number, dice_size):
     """
@@ -64,6 +65,7 @@ def gen_stat(option=None):
 
     types of rolls:
         1d20
+        2d6+6
         3d6
         4d6 drop 1 (default)
         5d6 drop 2
@@ -83,7 +85,9 @@ def gen_stat(option=None):
         return sum(rolls[2:])
     elif '1d20' == option:
         return roll(1,20)
-    else:
+    elif '2d6+6' == option:
+        return roll(1,6) + roll(1,6) + 6
+    else: #4d6 drop one
         rolls = [roll(1,6) for x in range(4)]
         rolls.sort()
         return sum(rolls[1:])
@@ -94,8 +98,10 @@ def gen_stats(option=None):
 
     types of rolls:
         1d20
+        2d6+6
         3d6
         4d6 drop 1 (default)
+        TODO: 4d6 drop 1 seven times drop lowest
         5d6 drop 2
 
     Input:
@@ -107,10 +113,16 @@ def gen_stats(option=None):
     stat.sort(reverse=True)
     return stat
 
+def calc_modifiers(stats):
+    """ returns a list of all the stat modifiers for a list of ability scores """
+    return [stat_mod(x) for x in stats]
+
+def stat_mod(stat):
+    """ return the calculated stat modifier """
+    return math.floor((stat-10)/2)
+
 def roll_avg_stat(count,option=None):
-    """
-    return the average stat give a number of times run
-    """
+    """ return the average stat give a number of times run """
     avg = 0
 
     for i in range(count):
