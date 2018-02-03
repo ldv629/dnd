@@ -27,9 +27,32 @@ def roll(number, dice_size):
     except:
         return 0
 
+def roll_advantage(stat_user=None):
+    """ stat_user is a tuple for stat and user id """
+    if stat_user == None:
+        r1 = roll(1,20)
+        r2 = roll(1,20)
+    else:
+        r1 = roll_stat(stat_user[0], stat_user[1])
+        r2 = roll_stat(stat_user[0], stat_user[1])
+
+    return r1 if r1 > r2 else r2 
+
+def roll_disadvantage(stat_user=None):
+    """ stat_user is a tuple for stat and user id """
+    if stat_user == None:
+        r1 = roll(1,20)
+        r2 = roll(1,20)
+    else:
+        r1 = roll_stat(stat_user[0], stat_user[1])
+        r2 = roll_stat(stat_user[0], stat_user[1])
+
+    return r1 if r1 < r2 else r2 
+
+
 def roll_stat(stat, user_id):
     """
-    Roll stat for character
+    Roll stat/ability for character
     Return:
         roll + stat
     """
