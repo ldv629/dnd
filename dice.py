@@ -28,7 +28,14 @@ def roll(number, dice_size):
         return 0
 
 def roll_advantage(stat_user=None):
-    """ stat_user is a tuple for stat and user id """
+    """ 
+    Rolls a d20 with advantage rules from 5th edition
+
+    Input:
+        stat_user -- tuple for stat and user id (Optional)
+    Return:
+        Hgher of two rolls
+    """
     if stat_user == None:
         r1 = roll(1,20)
         r2 = roll(1,20)
@@ -39,7 +46,14 @@ def roll_advantage(stat_user=None):
     return r1 if r1 > r2 else r2 
 
 def roll_disadvantage(stat_user=None):
-    """ stat_user is a tuple for stat and user id """
+    """ 
+    Rolls a d20 with disadvantage rules from 5th edition
+
+    Input:
+        stat_user -- tuple for stat and user id (Optional)
+    Return:
+        Lower of two rolls
+    """
     if stat_user == None:
         r1 = roll(1,20)
         r2 = roll(1,20)
@@ -48,7 +62,6 @@ def roll_disadvantage(stat_user=None):
         r2 = roll_stat(stat_user[0], stat_user[1])
 
     return r1 if r1 < r2 else r2 
-
 
 def roll_stat(stat, user_id):
     """
@@ -124,7 +137,7 @@ def gen_stats(option=None):
         2d6+6
         3d6
         4d6 drop 1 (default)
-        TODO: 4d6 drop 1 seven times drop lowest
+        4d6 drop 1 seven times drop lowest
         5d6 drop 2
 
     Input:
@@ -132,8 +145,14 @@ def gen_stats(option=None):
     Return:
         Integer
     """
-    stat = [gen_stat(option) for x in range(6)]
-    stat.sort(reverse=True)
+    if option == '4d6x7':
+        stat = [gen_stat('4d6') for x in range(7)]
+        stat.sort(reverse=True)
+        stat = stat[:-1]
+    else:
+        stat = [gen_stat(option) for x in range(6)]
+        stat.sort(reverse=True)
+
     return stat
 
 def calc_modifiers(stats):

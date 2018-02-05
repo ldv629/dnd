@@ -2,7 +2,7 @@
 
 from sqlalchemy import *
 
-engine = create_engine('sqlite:///stats.db')
+#engine = create_engine('sqlite:///stats.db')
 metadata = MetaData()
 
 characters = Table('characters', metadata,
@@ -80,7 +80,8 @@ feats = Table('feats', metadata,
     Column('feat_name', String(50), nullable=False),
     Column('char_id', Integer, ForeignKey('characters.char_id'), nullable=False))
 
-def create_db():
+def create_db(db_name='default_dnd'):
+    engine = create_engine('sqlite:///' + db_name + '.db')
     metadata.create_all(engine)
     '''
     characters.create(engine, checkfirst=True)

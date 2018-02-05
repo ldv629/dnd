@@ -1,8 +1,20 @@
 #!/usr/bin/env python3
 
+#TODO: add support to do things 3.5 and 5 going to start with 3.5
 import dice
 from sqlalchemy import *
-import dnd_db
+#import dnd_db
+db_connection = None
+
+def init(db_name):
+    engine = create_engine('sqlite:///' + db_name + '.db')
+    db_connection = engine.connect()
+
+def create_character(name,level,race,total_hp,subdual_hp,effective_hp):
+    pass
+
+def delete_character(user_id):
+    pass
 
 def take_damage(damage, user_id):
     pass
@@ -41,6 +53,9 @@ def remove_feat(user_id):
     pass
 
 def add_language(user_id):
+    pass
+
+def get_languages(user_id):
     pass
 
 def remove_language(user_id):

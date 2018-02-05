@@ -5,6 +5,7 @@ import dnd_db
 
 def print_help():
     """Print formatted help generated from available commands"""
+    #TODO: fix extra things in help
 
     print('List of Valid Commands:')
     print('\thelp')
@@ -20,6 +21,10 @@ def print_help():
             print('(count,num_of_dice,dice_size)')
         elif 'roll_avg_stat' is y:
             print('(count)')
+        elif 'roll_advantage' is y:
+            print('()')
+        elif 'roll_disadvantage' is y:
+            print('()')
         elif 'gen' in y:
             print('()')
         else:
