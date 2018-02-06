@@ -1,10 +1,29 @@
 #!/usr/bin/env python3
 
 from sqlalchemy import *
+from sqlalchemy.ext.declarative import declarative_base
 
 #engine = create_engine('sqlite:///stats.db')
+db_name = 'default_dnd'
+engine = create_engine('sqlite:///' + db_name + '.db')
 metadata = MetaData()
+Base = declarative_base()
 
+class Characters(Base):
+    __tablename__ = 'characters'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    level = Column(Integer, nullable=False)
+    race = Column(String, nullable=False)
+    #total_hp = Column(Integer, nullable=False)
+    #subdual_hp = Column(Integer, nullable=False)
+    #effective_hp = Column(Integer, nullable=False)
+
+    def __repr__(self):
+        return "<Characters(name='%s', level='%s', race='%s')>" % (self.name, self.level, self.race)
+
+"""
 characters = Table('characters', metadata,
     Column('char_id', Integer, primary_key=True),
     Column('char_name', String(50), nullable=False),
@@ -92,3 +111,4 @@ def create_db(db_name='default_dnd'):
     languages.create(engine, checkfirst=True)
     feats.create(engine, checkfirst=True)
     '''
+"""
