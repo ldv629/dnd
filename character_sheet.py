@@ -21,7 +21,11 @@ def create_character(name,level,race,total_hp):#,subdual_hp,effective_hp):
     session.commit()
 
 def delete_character(user_id):
-    session.query(dnd_db.Characters).filter_by(id = user_id)
+    try:
+        character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
+        session.delete(character)
+    except NoResultFound:
+        pass
 
 def take_damage(damage, user_id):
     try:
