@@ -3,36 +3,62 @@
 #TODO: add support to do things 3.5 and 5 going to start with 3.5
 import dice
 from sqlalchemy import *
-#import dnd_db
-db_connection = None
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
+import dnd_db
 
-def init(db_name):
-    engine = create_engine('sqlite:///' + db_name + '.db')
-    db_connection = engine.connect()
+db_name = 'default_db'
 
-def create_character(name,level,race,total_hp,subdual_hp,effective_hp):
-    pass
+engine = create_engine('sqlite:///' + db_name + '.db')
+dnd_db.Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+session = Session()
+    
+
+def create_character(name,level,race,total_hp):#,subdual_hp,effective_hp):
+    character = dnd_db.Characters(name=name,level=level,race=race,total_hp=total_hp)
+    session.add(character)
+    session.commit()
 
 def delete_character(user_id):
-    pass
+    session.query(dnd_db.Characters).filter_by(id = user_id)
 
 def take_damage(damage, user_id):
-    pass
+    try:
+        character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
+        character.total_hp -= damage
+        session.commit()
+    except NoResultFound:
+        pass
 
 def take_subdual_damage(damage, user_id):
     pass
 
 def receive_healing(damage, user_id):
-    pass
+    try:
+        character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
+        character.total_hp += damage
+        session.commit()
+    except NoResultFound:
+        pass
 
 def receive_subdual_healing(damage, user_id):
     pass
 
-def set_hp(user_id):
-    pass
+def set_hp(hp, user_id):
+    try:
+        character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
+        character.total_hp = damage
+        session.commit()
+    except NoResultFound:
+        pass
 
 def get_hp(user_id):
-    pass
+    try:
+        character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
+        return character.total_hp
+    except NoResultFound:
+        pass
 
 def set_current_hp(user_id):
     pass

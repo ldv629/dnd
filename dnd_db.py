@@ -12,16 +12,16 @@ Base = declarative_base()
 class Characters(Base):
     __tablename__ = 'characters'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
+    id = Column(Integer, Sequence('user_id_seq'), primary_key=True)
+    name = Column(String(50), nullable=False)
     level = Column(Integer, nullable=False)
-    race = Column(String, nullable=False)
-    #total_hp = Column(Integer, nullable=False)
+    race = Column(String(50), nullable=False)
+    total_hp = Column(Integer, nullable=False)
     #subdual_hp = Column(Integer, nullable=False)
     #effective_hp = Column(Integer, nullable=False)
 
     def __repr__(self):
-        return "<Characters(name='%s', level='%s', race='%s')>" % (self.name, self.level, self.race)
+        return "<Characters(name='%s', level='%s', race='%s', hp='%s')>" % (self.name, self.level, self.race, self.total_hp)
 
 """
 characters = Table('characters', metadata,
