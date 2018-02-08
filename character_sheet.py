@@ -16,7 +16,7 @@ session = Session()
     
 
 def create_character(name,level,race,total_hp):#,subdual_hp,effective_hp):
-    character = dnd_db.Characters(name=name,level=level,race=race,total_hp=total_hp)
+    character = dnd_db.Characters(name=name,level=level,race=race,total_hp=total_hp,subdual_damage=0,damage_take=0)
     session.add(character)
     session.commit()
 
@@ -30,34 +30,56 @@ def delete_character(user_id):
 def take_damage(damage, user_id):
     try:
         character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
-        character.total_hp -= damage
+        character.damage_taken += damage
         session.commit()
+        return character.total_hp - character.subdual_damage - character.damage_taken
     except NoResultFound:
         pass
 
 def take_subdual_damage(damage, user_id):
-    pass
-
-def receive_healing(damage, user_id):
     try:
         character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
-        character.total_hp += damage
+        character.subdual_damage += damage
+        session.commit()
+        return character.total_hp - character.subdual_damage - character.damage_taken
+    except NoResultFound:
+        pass
+
+def receive_healing(healing, user_id):
+    try:
+        character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
+        character.damage_taken -= healing if healing < character.damage_taken else character.damage_taken
         session.commit()
     except NoResultFound:
         pass
 
-def receive_subdual_healing(damage, user_id):
-    pass
+def receive_subdual_healing(healing, user_id):
+    try:
+        character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
+        if character.subdual_damage =< healing:
+            diff = healing - character.subdual_damage
+            character.subdual_damage = 0
+            return diff
+        else
+            character.subdual_damage -= healing 
+            return 0
+        session.commit()
+    except NoResultFound:
+        pass
 
 def set_hp(hp, user_id):
     try:
         character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
-        character.total_hp = damage
+        if hp < 1:
+            raise ValueError
+        character.total_hp = hp
         session.commit()
     except NoResultFound:
         pass
+    except ValueError:
+        pass #negative value
 
-def get_hp(user_id):
+def get_total_hp(user_id):
     try:
         character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
         return character.total_hp
@@ -65,16 +87,21 @@ def get_hp(user_id):
         pass
 
 def set_current_hp(user_id):
-    pass
+    pass #probably won't use this function
 
 def get_current_hp(user_id):
-    pass
-
-def set_subdual_hp(user_id):
-    pass
+    try:
+        character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
+        return character.total_hp - character.subdual_damage - character.damage_taken
+    except NoResultFound:
+        pass
 
 def get_subdual_hp(user_id):
-    pass
+    try:
+        character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
+        return character.total_hp - character.subdual_damage
+    except NoResultFound:
+        pass
 
 def add_feat(user_id):
     pass

@@ -17,8 +17,8 @@ class Characters(Base):
     level = Column(Integer, nullable=False)
     race = Column(String(50), nullable=False)
     total_hp = Column(Integer, nullable=False)
-    #subdual_hp = Column(Integer, nullable=False)
-    #effective_hp = Column(Integer, nullable=False)
+    subdual_damage = Column(Integer, nullable=False)
+    damage_taken = Column(Integer, nullable=False) 
 
     def __repr__(self):
         return "<Characters(name='%s', level='%s', race='%s', hp='%s')>" % (self.name, self.level, self.race, self.total_hp)
