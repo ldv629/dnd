@@ -35,13 +35,13 @@ class ability_scores(Base):
     wisdom = Column(Integer)
     charisma = Column(Integer)
     appearance = Column(Integer)
-    char_id = Column(Integer, ForeignKey('characters.char_id')
+    char_id = Column(Integer, ForeignKey('characters.id'))
 
     def __repr__(self):
-        return "Ability Scores:\n\tSTR = %s\n\tDEX = %s\n\tCON = %s\n\tINT = %s\n\tWIS = %s\n\tCHA = %s" % (self.strenght, self.dexterity, self.constitution, self.intelligence, self.wisdom, self.charisma)
+        return "Ability Scores:\n\tSTR = %s\n\tDEX = %s\n\tCON = %s\n\tINT = %s\n\tWIS = %s\n\tCHA = %s" % (self.strength, self.dexterity, self.constitution, self.intelligence, self.wisdom, self.charisma)
 
 class saves_ac(Base):
-    __table_name__ = 'saves_ac'
+    __tablename__ = 'saves_ac'
 
     id = Column(Integer, primary_key=True)
     ac = Column(Integer)
@@ -54,51 +54,51 @@ class saves_ac(Base):
     init = Column(Integer)
     init_base = Column(Integer)
     bab = Column(Integer)
-    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
+    char_id = Column(Integer, ForeignKey('characters.id'))
 
 class weapons(Base):
-    __table_name__ = 'weapons'
+    __tablename__ = 'weapons'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
     damage = Column(String(50), nullable=False)
     threat = Column(Integer, nullable=False)
     range = Column(Integer, nullable=False)
-    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
+    char_id = Column(Integer, ForeignKey('characters.id'))
 
 class inventory(Base):
-    __table_name__ = 'inventory'
+    __tablename__ = 'inventory'
 
     id = Column(Integer, primary_key=True)
     item_name = Column(String(50), nullable=False)
     weight = Column(String(50), nullable=False)
     quantity = Column(Integer, nullable=False)
     carry_weight = Column(Integer, nullable=False)
-    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
+    char_id = Column(Integer, ForeignKey('characters.id'))
 
 class skills(Base):
-    __table_name__ = 'skills'
+    __tablename__ = 'skills'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
     rank = Column(Integer, nullable=False)
     synergy = Column(Integer, nullable=False)
     misc = Column(Integer, nullable=False)
-    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
+    char_id = Column(Integer, ForeignKey('characters.id'))
 
 class languages(Base):
-    __table_name__ = 'languages'
+    __tablename__ = 'languages'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
-    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
+    char_id = Column(Integer, ForeignKey('characters.id'))
 
 class feats(Base):
-    __table_name__ = 'feats'
+    __tablename__ = 'feats'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
-    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
+    char_id = Column(Integer, ForeignKey('characters.id'))
 
 """
 characters = Table('characters', metadata,
@@ -126,7 +126,7 @@ ability_scores = Table('ability_scores', metadata,
     Column('cha_mod', Integer),
     Column('app', Integer),
     Column('app_mod', Integer),
-    Column('char_id', Integer, ForeignKey('characters.char_id'), nullable=False))
+    Column('char_id', Integer, ForeignKey('characters.id')))
 
 saves_ac = Table('saves_ac', metadata,
     Column('saves_id', Integer, primary_key=True),
@@ -140,7 +140,7 @@ saves_ac = Table('saves_ac', metadata,
     Column('init', Integer),
     Column('init_base', Integer),
     Column('bab', Integer),
-    Column('char_id', Integer, ForeignKey('characters.char_id'), nullable=False))
+    Column('char_id', Integer, ForeignKey('characters.id')))
 
 weapons = Table('weapons', metadata,
     Column('weapon_id', Integer, primary_key=True),
@@ -148,7 +148,7 @@ weapons = Table('weapons', metadata,
     Column('weapon_damage', String(50), nullable=False),
     Column('weapon_threat', Integer, nullable=False),
     Column('weapon_range', Integer, nullable=False),
-    Column('char_id', Integer, ForeignKey('characters.char_id'), nullable=False))
+    Column('char_id', Integer, ForeignKey('characters.id')))
 
 inventory = Table('inventory', metadata,
     Column('inventory_id', Integer, primary_key=True),
@@ -156,7 +156,7 @@ inventory = Table('inventory', metadata,
     Column('weight', String(50), nullable=False),
     Column('quantity', Integer, nullable=False),
     Column('carry_weight', Integer, nullable=False),
-    Column('char_id', Integer, ForeignKey('characters.char_id'), nullable=False))
+    Column('char_id', Integer, ForeignKey('characters.id')))
 
 skills = Table('skills', metadata,
     Column('skill_id', Integer, primary_key=True),
@@ -164,17 +164,17 @@ skills = Table('skills', metadata,
     Column('skill_rank', Integer, nullable=False),
     Column('skill_synergy', Integer, nullable=False),
     Column('skill_misc', Integer, nullable=False),
-    Column('char_id', Integer, ForeignKey('characters.char_id'), nullable=False))
+    Column('char_id', Integer, ForeignKey('characters.id')))
 
 languages = Table('languages', metadata,
     Column('language_id', Integer, primary_key=True),
     Column('language_name', String(50), nullable=False),
-    Column('char_id', Integer, ForeignKey('characters.char_id'), nullable=False))
+    Column('char_id', Integer, ForeignKey('characters.id')))
 
 feats = Table('feats', metadata,
     Column('feat_id', Integer, primary_key=True),
     Column('feat_name', String(50), nullable=False),
-    Column('char_id', Integer, ForeignKey('characters.char_id'), nullable=False))
+    Column('char_id', Integer, ForeignKey('characters.id')))
 
 def create_db(db_name='default_dnd'):
     engine = create_engine('sqlite:///' + db_name + '.db')

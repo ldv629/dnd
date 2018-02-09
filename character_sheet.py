@@ -16,7 +16,7 @@ session = Session()
     
 
 def create_character(name,level,race,total_hp):#,subdual_hp,effective_hp):
-    character = dnd_db.Characters(name=name,level=level,race=race,total_hp=total_hp,subdual_damage=0,damage_take=0)
+    character = dnd_db.Characters(name=name,level=level,race=race,total_hp=total_hp,subdual_damage=0,damage_taken=0)
     session.add(character)
     session.commit()
 
@@ -56,11 +56,11 @@ def receive_healing(healing, user_id):
 def receive_subdual_healing(healing, user_id):
     try:
         character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
-        if character.subdual_damage =< healing:
+        if character.subdual_damage <= healing:
             diff = healing - character.subdual_damage
             character.subdual_damage = 0
             return diff
-        else
+        else:
             character.subdual_damage -= healing 
             return 0
         session.commit()
@@ -103,19 +103,19 @@ def get_subdual_hp(user_id):
     except NoResultFound:
         pass
 
-def add_feat(user_id):
+def add_feat(feat, user_id):
     pass
 
-def remove_feat(user_id):
+def remove_feat(feat, user_id):
     pass
 
-def add_language(user_id):
+def add_language(language, user_id):
     pass
 
 def get_languages(user_id):
     pass
 
-def remove_language(user_id):
+def remove_language(language, user_id):
     pass
 
 def set_skill(skill, user_id):
@@ -124,13 +124,13 @@ def set_skill(skill, user_id):
 def get_skill(skill, user_id):
     pass
 
-def set_init(user_id):
+def set_init(init, user_id):
     pass
 
-def get_init(user_id):
+def get_init(init, user_id):
     pass
 
-def set_stat(stat,value, user_id):
+def set_stat(stat, value, user_id):
     if stat is 'str':
         pass
     elif stat is 'dex':
