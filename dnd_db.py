@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from sqlalchemy import *
+from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
 #engine = create_engine('sqlite:///stats.db')
@@ -22,6 +23,82 @@ class Characters(Base):
 
     def __repr__(self):
         return "<Characters(name='%s', level='%s', race='%s', hp='%s')>" % (self.name, self.level, self.race, self.total_hp)
+
+class ability_scores(Base):
+    __tablename__ = 'ability_scores'
+
+    id = Column(Integer, primary_key=True)
+    strength = Column(Integer)
+    dexterity = Column(Integer)
+    constitution = Column(Integer)
+    intelligence = Column(Integer)
+    wisdom = Column(Integer)
+    charisma = Column(Integer)
+    appearance = Column(Integer)
+    char_id = Column(Integer, ForeignKey('characters.char_id')
+
+    def __repr__(self):
+        return "Ability Scores:\n\tSTR = %s\n\tDEX = %s\n\tCON = %s\n\tINT = %s\n\tWIS = %s\n\tCHA = %s" % (self.strenght, self.dexterity, self.constitution, self.intelligence, self.wisdom, self.charisma)
+
+class saves_ac(Base):
+    __table_name__ = 'saves_ac'
+
+    id = Column(Integer, primary_key=True)
+    ac = Column(Integer)
+    ref = Column(Integer)
+    ref_base = Column(Integer)
+    fort = Column(Integer)
+    fort_base = Column(Integer)
+    will = Column(Integer)
+    will_base = Column(Integer)
+    init = Column(Integer)
+    init_base = Column(Integer)
+    bab = Column(Integer)
+    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
+
+class weapons(Base):
+    __table_name__ = 'weapons'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
+    damage = Column(String(50), nullable=False)
+    threat = Column(Integer, nullable=False)
+    range = Column(Integer, nullable=False)
+    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
+
+class inventory(Base):
+    __table_name__ = 'inventory'
+
+    id = Column(Integer, primary_key=True)
+    item_name = Column(String(50), nullable=False)
+    weight = Column(String(50), nullable=False)
+    quantity = Column(Integer, nullable=False)
+    carry_weight = Column(Integer, nullable=False)
+    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
+
+class skills(Base):
+    __table_name__ = 'skills'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
+    rank = Column(Integer, nullable=False)
+    synergy = Column(Integer, nullable=False)
+    misc = Column(Integer, nullable=False)
+    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
+
+class languages(Base):
+    __table_name__ = 'languages'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
+    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
+
+class feats(Base):
+    __table_name__ = 'feats'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
+    char_id = Column(Integer, ForeignKey('characters.char_id'), nullable=False)
 
 """
 characters = Table('characters', metadata,
