@@ -7,12 +7,15 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 import dnd_db
 
-db_name = 'default_db'
+#db_name = 'default_db'
+session = None
 
-engine = create_engine('sqlite:///' + db_name + '.db')
-dnd_db.Base.metadata.create_all(engine)
-Session = sessionmaker(bind=engine)
-session = Session()
+def init_database(db_name):
+    engine = create_engine('sqlite:///' + db_name + '.db')
+    dnd_db.Base.metadata.create_all(engine)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    return session
     
 
 def create_character(name, level, race, total_hp):#,subdual_hp,effective_hp):
@@ -117,7 +120,7 @@ def add_feat(feat, user_id):
     session.add(name)
     session.commit()
 
-def get_feats(feat, user_id):
+def get_feats(user_id):
     try:
         return session.query(dnd_db.Feats).filter_by(char_id = user_id).all()
     except NoResultFound:

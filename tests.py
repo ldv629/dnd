@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import chacter_sheet as cs
+import character_sheet as cs
 import os
 
 if os.path.isfile('./test.db'):
@@ -9,6 +9,8 @@ engine = cs.create_engine('sqlite:///test.db')
 cs.dnd_db.Base.metadata.create_all(engine)
 Session = cs.sessionmaker(bind=engine)
 session = Session()
+
+cs.session = cs.init_database('test')
 
 def create_test_characters():
     cs.create_character('Bob',1,'Human',20)
@@ -26,6 +28,9 @@ def create_test_characters():
     cs.add_feat('bar',1)
     cs.add_feat('bar',5)
     cs.add_feat('bar',4)
+    #TODO: ^^ needs to be relational in some manner to allow for multiple feats per character right now
+    #one to many?
+
     #TODO: check to make sure not adding duplicate feat/language
 
     cs.add_language('common',1)
@@ -35,3 +40,8 @@ def create_test_characters():
     cs.add_language('Infernal',1)
     cs.add_language('Abyssal',5)
     cs.add_language('Draconic',4)
+
+
+def tests():
+    cs.get_feats(1)
+    cs.get_languages(1)
