@@ -106,19 +106,51 @@ def get_subdual_hp(user_id):
         pass
 
 def add_feat(feat, user_id):
-    pass
+    try:
+        name = session.query(dnd_db.Feats).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        name = dnd_db.Feats()
+        name.char_id = user_id
+
+    name.name = feat
+
+    session.add(name)
+    session.commit()
+
+def get_feats(feat, user_id):
+    try:
+        return session.query(dnd_db.Languages).filter_by(char_id = user_id).all()
+    except NoResultFound:
+        return 'error none found'
 
 def remove_feat(feat, user_id):
     pass
 
 def add_language(language, user_id):
-    pass
+    try:
+        name = session.query(dnd_db.Languages).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        name = dnd_db.Languages()
+        name.char_id = user_id
+
+    name.name = language
+
+    session.add(name)
+    session.commit()
 
 def get_languages(user_id):
-    pass
+    try:
+        return session.query(dnd_db.Languages).filter_by(char_id = user_id).all()
+    except NoResultFound:
+        return 'error none found'
 
 def remove_language(language, user_id):
-    pass
+    try:
+        language = session.query(dnd_db.Languages).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        return 'error none found'
+
+    session.delete(language)
 
 def set_skill(skill, user_id):
     pass
@@ -167,25 +199,26 @@ def set_stat(stat, value, user_id):
     """
     elif stat is 'app':
         ability = session.query(dnd_db.Abilities).filter_by(char_id = user_id).one()
-        ability.strength = value
+        ability.appearance = value
     """
 
     session.add(ability)
     session.commit()
 
 def get_stat(stat, user_id):
+    ability = session.query(dnd_db.Abilities).filter_by(char_id = user_id).one()
     if stat is 'str':
-        pass
+        return ability.strength
     elif stat is 'dex':
-        pass
+        return ability.dexterity
     elif stat is 'con':
-        pass
+        return ability.constitution
     elif stat is 'int':
-        pass
+        return ability.intelligence
     elif stat is 'wis':
-        pass
+        return ability.wisdom
     elif stat is 'cha':
-        pass
+        return ability.charisma
     elif stat is 'app':
         pass
 
