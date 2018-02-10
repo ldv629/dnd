@@ -25,6 +25,25 @@ def create_character(name, level, race, total_hp):#,subdual_hp,effective_hp):
     session.add(character)
     session.commit()
 
+def full_sheet(user_id):
+    character = session.query(dnd_db.Characters).filter_by(id=user_id).one()
+    abilities = session.query(dnd_db.Abilities).filter_by(char_id=user_id).one()
+    #feats = session.query(dnd_db.Feats).filter_by(char_id=user_id).all()
+    #languages = session.query(dnd_db.Languages).filter_by(char_id=user_id).all()
+
+    current_hp = get_current_hp(user_id)
+
+    print('%s\nlvl=%s\n%s CLASS\nHP=%s/%s' % (character.name,character.level, character.race, current_hp, character.total_hp))
+    print(abilities)
+
+def get_characters():
+    characters = session.query(dnd_db.Characters).all()
+
+    for char in characters:
+        print(char)
+
+    return characters
+
 def delete_character(user_id):
     try:
         character = session.query(dnd_db.Characters).filter_by(id = user_id).one()
