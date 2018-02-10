@@ -16,11 +16,11 @@ session = Session()
     
 
 def create_character(name, level, race, total_hp):#,subdual_hp,effective_hp):
+    #TODO: check bounds of level and total_hp
+    #TODO: add class to database
     character = dnd_db.Characters(name=name, level=level, race=race, total_hp=total_hp, subdual_damage=0, damage_taken=0)
     session.add(character)
     session.commit()
-
-
 
 def delete_character(user_id):
     try:
@@ -119,12 +119,16 @@ def add_feat(feat, user_id):
 
 def get_feats(feat, user_id):
     try:
-        return session.query(dnd_db.Languages).filter_by(char_id = user_id).all()
+        return session.query(dnd_db.Feats).filter_by(char_id = user_id).all()
     except NoResultFound:
         return 'error none found'
 
-def remove_feat(feat, user_id):
-    pass
+def delete_feat(feat, user_id):
+    try:
+        name = session.query(dnd_db.Characters).filter_by(char_id = user_id).all()
+        session.delete(name)
+    except NoResultFound:
+        pass
 
 def add_language(language, user_id):
     try:
