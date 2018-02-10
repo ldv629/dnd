@@ -15,10 +15,12 @@ Session = sessionmaker(bind=engine)
 session = Session()
     
 
-def create_character(name,level,race,total_hp):#,subdual_hp,effective_hp):
-    character = dnd_db.Characters(name=name,level=level,race=race,total_hp=total_hp,subdual_damage=0,damage_taken=0)
+def create_character(name, level, race, total_hp):#,subdual_hp,effective_hp):
+    character = dnd_db.Characters(name=name, level=level, race=race, total_hp=total_hp, subdual_damage=0, damage_taken=0)
     session.add(character)
     session.commit()
+
+
 
 def delete_character(user_id):
     try:
@@ -130,21 +132,46 @@ def set_init(init, user_id):
 def get_init(init, user_id):
     pass
 
+def set_abilities(abilities, user_id):
+    try:
+        set_stat('str',abilities[0],user_id)
+        set_stat('dex',abilities[1],user_id)
+        set_stat('con',abilities[2],user_id)
+        set_stat('int',abilities[3],user_id)
+        set_stat('wis',abilities[4],user_id)
+        set_stat('cha',abilities[5],user_id)
+    except IndexError:
+        print("array too small")
+
 def set_stat(stat, value, user_id):
+    try:
+        ability = session.query(dnd_db.Abilities).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        ability = dnd_db.Abilities()
+        ability.char_id = user_id
+        #TODO: add checks to make sure that user_id exists
+
+
     if stat is 'str':
-        pass
+        ability.strength = value
     elif stat is 'dex':
-        pass
+        ability.dexterity = value
     elif stat is 'con':
-        pass
+        ability.constitution = value
     elif stat is 'int':
-        pass
+        ability.intelligence = value
     elif stat is 'wis':
-        pass
+        ability.wisdom = value
     elif stat is 'cha':
-        pass
+        ability.charisma = value
+    """
     elif stat is 'app':
-        pass
+        ability = session.query(dnd_db.Abilities).filter_by(char_id = user_id).one()
+        ability.strength = value
+    """
+
+    session.add(ability)
+    session.commit()
 
 def get_stat(stat, user_id):
     if stat is 'str':
