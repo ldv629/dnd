@@ -30,11 +30,20 @@ def full_sheet(user_id):
     abilities = session.query(dnd_db.Abilities).filter_by(char_id=user_id).one()
     #feats = session.query(dnd_db.Feats).filter_by(char_id=user_id).all()
     #languages = session.query(dnd_db.Languages).filter_by(char_id=user_id).all()
+    #skills = session.query(dnd_db.Skills).filter_by(char_id=user_id).onel()
 
     current_hp = get_current_hp(user_id)
 
     print('%s\nlvl=%s\n%s CLASS\nHP=%s/%s' % (character.name,character.level, character.race, current_hp, character.total_hp))
     print(abilities)
+    """
+    print("\nFeats:")
+    for x in feats:
+        print("\t%s" % (x))
+    """
+    """
+    print(skills)
+    """
 
 def get_characters():
     characters = session.query(dnd_db.Characters).all()
@@ -178,10 +187,29 @@ def remove_language(language, user_id):
 
     session.delete(language)
 
-def set_skill(skill, user_id):
-    pass
+def create_skill(user_id):
+    name = dnd_db.Skills()
+    name.char_id = user_id
+    name.rank = 0
+    name.synergy = 0
+    name.misc = 0
+
+    session.add(name)
+    session.commit()
+
+def set_skill_rank(skill, value, user_id):
+    try:
+        name = session.query(dnd_db.Skills).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        create_skill(user_id)
+        name = session.query(dnd_db.Skills).filter_by(char_id = user_id).one()
+        #TODO: add checks to make sure that user_id exists
+    
+    name.name = skill
+    name.rank = value
 
 def get_skill(skill, user_id):
+    #name = session.query(dnd_db.Skills).filter_by(char_id = user_id).one()
     pass
 
 def set_init(init, user_id):
