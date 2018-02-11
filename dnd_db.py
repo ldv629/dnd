@@ -18,13 +18,14 @@ class Characters(Base):
     name = Column(String(50), nullable=False)
     level = Column(Integer, nullable=False)
     race = Column(String(50), nullable=False)
+    char_class = Column(String(50), nullable=False)
     total_hp = Column(Integer, nullable=False)
     subdual_damage = Column(Integer, nullable=False)
     damage_taken = Column(Integer, nullable=False) 
 
     def __repr__(self):
         current_hp = self.total_hp - self.subdual_damage - self.damage_taken
-        return "Name=%s level=%s race=%s total_hp=%s current_hp= %s" % (self.name, self.level, self.race, self.total_hp, current_hp)
+        return "Name=%s level=%s race=%s class=%s total_hp=%s current_hp= %s" % (self.name, self.level, self.race, self.char_class, self.total_hp, current_hp)
 
 class Abilities(Base):
     __tablename__ = 'abilities'

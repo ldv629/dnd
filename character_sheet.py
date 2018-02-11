@@ -34,7 +34,7 @@ def full_sheet(user_id):
 
     current_hp = get_current_hp(user_id)
 
-    print('%s\nlvl=%s\n%s CLASS\nHP=%s/%s' % (character.name,character.level, character.race, current_hp, character.total_hp))
+    print('%s\nlvl=%s\n%s %s\nHP=%s/%s' % (character.name,character.level, character.race, character.char_class, current_hp, character.total_hp))
     print(abilities)
     """
     print("\nFeats:")
@@ -197,6 +197,23 @@ def create_skill(user_id):
     session.add(name)
     session.commit()
 
+def create_skill(user_id):
+    name = dnd_db.Saves_ac()
+    name.char_id = user_id
+    name.ac = 0
+    name.ref = 0
+    name.ref_base = 0
+    name.fort = 0
+    name.fort_base = 0
+    name.will = 0
+    name.will_base = 0
+    name.init = 0
+    name.init_base = 0
+    name.bab = 0
+
+    session.add(name)
+    session.commit()
+
 def set_skill_rank(skill, value, user_id):
     try:
         name = session.query(dnd_db.Skills).filter_by(char_id = user_id).one()
@@ -208,14 +225,155 @@ def set_skill_rank(skill, value, user_id):
     name.name = skill
     name.rank = value
 
+    session.add(name)
+    session.commit()
+
 def get_skill(skill, user_id):
     #name = session.query(dnd_db.Skills).filter_by(char_id = user_id).one()
     pass
 
+def get_init(user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        pass
+
+    return name.init
+
+def get_ac(user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        pass
+
+    return name.ac
+
+def get_reflex_save(user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        pass
+
+    return name.ref
+
+def get_fort_save(user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        pass
+
+    return name.fort
+
+def get_will_save(user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        pass
+
+    return name.will
+
+def get_base_attack_bonus(user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        pass
+
+    return name.bab
+
 def set_init(init, user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        create_saves_ac(user_id)
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+        #TODO: add checks to make sure that user_id exists
+
+    name.init = init
+
+    session.add(name)
+    session.commit()
+    
+def set_ac(ac, user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        create_saves_ac(user_id)
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+        #TODO: add checks to make sure that user_id exists
+
+    name.ac = ac
+
+    session.add(name)
+    session.commit()
+
+def set_reflex_save(ref, user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        create_saves_ac(user_id)
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+        #TODO: add checks to make sure that user_id exists
+
+    name.ref = ref
+
+    session.add(name)
+    session.commit()
+
+def set_fort_save(fort, user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        create_saves_ac(user_id)
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+        #TODO: add checks to make sure that user_id exists
+
+    name.fort = fort
+
+    session.add(name)
+    session.commit()
+
+def set_will_save(will, user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        create_saves_ac(user_id)
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+        #TODO: add checks to make sure that user_id exists
+
+    name.will = will
+
+    session.add(name)
+    session.commit()
+
+def set_base_attack_bonus(bab, user_id):
+    try:
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+    except NoResultFound:
+        create_saves_ac(user_id)
+        name = session.query(dnd_db.Saves_ac).filter_by(char_id = user_id).one()
+        #TODO: add checks to make sure that user_id exists
+
+    name.bab = bab
+
+    session.add(name)
+    session.commit()
+
+def get_init(user_id):
     pass
 
-def get_init(init, user_id):
+def get_ac(user_id):
+    pass
+
+def get_reflex_save(user_id):
+    pass
+
+def get_fort_save(user_id):
+    pass
+
+def get_will_save(user_id):
+    pass
+
+def get_base_attack_bonus(user_id):
     pass
 
 def set_abilities(abilities, user_id):
