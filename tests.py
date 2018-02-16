@@ -26,8 +26,9 @@ def create_test_characters():
     cs.add_feat('foo',3)
     cs.add_feat('foo',4)
     cs.add_feat('bar',1)
-    cs.add_feat('bar',5)
-    cs.add_feat('bar',4)
+    cs.add_feat('bar',2)
+    cs.add_feat('bar',3)
+    cs.add_feat('foobar',4)
     #TODO: ^^ needs to be relational in some manner to allow for multiple feats per character right now
     #one to many?
 
