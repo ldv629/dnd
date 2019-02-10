@@ -34,7 +34,7 @@ def main():
     """Main loop for text ui"""
 
     print("Type 'help' to print commands")
-    dnd_db.create_db()
+    #dnd_db.create_db()
     while(1):
         command = input('Enter a command to run: ',)
         if 'help' in command or 'randint' in command:

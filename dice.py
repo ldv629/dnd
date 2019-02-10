@@ -184,6 +184,56 @@ def roll_avg(count, number, dice_size):
 
     return avg / count
 
+########Star Wars Dice##################
+def roll_green(count):
+    pass
+
+def roll_purple(count):
+    pass
+
+def roll_red(count):
+    pass
+
+def roll_gold(count):
+    pass
+
+def roll_blue(count):
+    pass
+
+def roll_black(count):
+    pass
+
+def roll_white(count):
+    pass
+
+def roll_starwars(green,purple,blue,black,gold,red,white):
+    green_result = roll_green(green)
+    purple_result = roll_purple(purple)
+    blue_result = roll_blue(blue)
+    black_result = roll_black(black)
+    gold_result = roll_gold(gold)
+    red_result = roll_red(red)
+    white_result = roll_white(white)
+
+    result = {  'green' :   green_result,
+                'purple':   purple_result,
+                'blue'  :   blue_result,
+                'black' :   black_result,
+                'gold'  :   gold_result,
+                'red'   :   red_result,
+                'white' :   white_result}
+
+
+def starwars_print(result,color):
+    print(color + ': ')
+    print('\tadvantage: %d',result['advantage'])
+    print('\tthreat: %d',result['threat'])
+    print('\tsuccess: %d',result['success'])
+    print('\tfailure: %d',result['failure'])
+    
+    print('\tforce: ')
+    print('\t\tlight: %d',result['f
+
 if __name__ == "__main__":
     import sys
     print("roll = {}".format(roll(int(sys.argv[1]),int(sys.argv[2]))))

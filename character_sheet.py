@@ -197,7 +197,7 @@ def create_skill(user_id):
     session.add(name)
     session.commit()
 
-def create_skill(user_id):
+def create_saves_ac(user_id):
     name = dnd_db.Saves_ac()
     name.char_id = user_id
     name.ac = 0
