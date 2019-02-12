@@ -399,6 +399,13 @@ def starwars_print_net(result):
 
     td_result = result['gold']['triumph'] - result['red']['despair']
 
+    print('Net Advantage/Threat: %d', at_result)
+    print('Net Success/Failure: %d', sf_result)
+    print('Net Triumph/Despair: %d', td_result)
+    print('Lightside: %d', result['white']['light'])
+    print('Darkside: %d', result['white']['dark'])
+    
+
    
 
 def starwars_print(result,color):
